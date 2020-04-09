@@ -10,7 +10,7 @@ import java.util.*;
 import java.io.*;
 
 public class ScoreHistoryFile {
-	// System.out.println("pwd SCORE.DAT: "+System.getProperty("user.dir"));
+	// executing in /out/production
 	private static String SCOREHISTORY_DAT = "./DASS_Assignment_3/SCOREHISTORY.DAT";
 
 	public static void addScore(String nick, String date, String score)

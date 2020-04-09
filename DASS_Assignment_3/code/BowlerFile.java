@@ -25,7 +25,7 @@ import java.io.*;
 class BowlerFile {
 
 	/** The location of the bowelr database */
-	// System.out.println("pwd BOLWLER.DAT: " + System.getProperty("user.dir") );
+	// executing in /out/production
 	private static String BOWLER_DAT = "./DASS_Assignment_3/BOWLERS.DAT";
 
     /**
