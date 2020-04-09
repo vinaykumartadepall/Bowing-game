@@ -89,7 +89,7 @@ public class AddPartyView implements ActionListener, ListSelectionListener {
 		try {
 			bowlerdb = new Vector(BowlerFile.getBowlers());
 		} catch (Exception e) {
-			System.err.println("File Error");
+			System.err.println("File Error in Add Party View");
 			bowlerdb = new Vector();
 		}
 		allBowlers = new JList(bowlerdb);

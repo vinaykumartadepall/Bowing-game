@@ -255,7 +255,6 @@ public class Lane extends Thread implements PinsetterObserver
 				sleep(10);
 			} 
 			catch (Exception ignored) {}
-			System.out.println("Waiting");
 		}
 		return;
 
@@ -785,7 +784,6 @@ public class Lane extends Thread implements PinsetterObserver
 	 */
 	public void unPauseGame() 
 	{
-		System.out.println("Game unhalted");
 		gameIsHalted = false;
 		publish(lanePublish());
 	}

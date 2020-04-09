@@ -10,13 +10,14 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import jdk.nashorn.api.tree.Tree;
+
 public class LaneStatusView implements ActionListener, LaneObserver, PinsetterObserver {
 
-	private JPanel jp;
-
+	private JPanel jp, buttonPanel,viewLanePanel,viewPinSetterPanel,maintenancePanel,PausePanel,ResumePanel;
 	private JLabel curBowler, pinsDown,foul;
 	private JButton viewLane;
-	private JButton viewPinSetter, maintenance;
+	private JButton viewPinSetter, maintenance, Pause_Button, Resume_button;
 
 
 	private PinSetterView psv;
@@ -53,37 +54,54 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 		pinsDown = new JLabel( "0" );
 
 		// Button Panel
-		JPanel buttonPanel = new JPanel();
+		buttonPanel = new JPanel();
 		buttonPanel.setLayout(new FlowLayout());
 
 		Insets buttonMargin = new Insets(4, 4, 4, 4);
 
 		viewLane = new JButton("View Lane");
-		JPanel viewLanePanel = new JPanel();
+		viewLanePanel = new JPanel();
 		viewLanePanel.setLayout(new FlowLayout());
 		viewLane.addActionListener(this);
 		viewLanePanel.add(viewLane);
 
 		viewPinSetter = new JButton("Pinsetter");
-		JPanel viewPinSetterPanel = new JPanel();
+		viewPinSetterPanel = new JPanel();
 		viewPinSetterPanel.setLayout(new FlowLayout());
 		viewPinSetter.addActionListener(this);
 		viewPinSetterPanel.add(viewPinSetter);
 
 		maintenance = new JButton("     ");
 		maintenance.setBackground( Color.GREEN );
-		JPanel maintenancePanel = new JPanel();
+		maintenancePanel = new JPanel();
 		maintenancePanel.setLayout(new FlowLayout());
 		maintenance.addActionListener(this);
 		maintenancePanel.add(maintenance);
 
+		Pause_Button = new JButton("Pause");
+		PausePanel = new JPanel();
+		PausePanel.setLayout(new FlowLayout());
+		Pause_Button.addActionListener(this);
+		PausePanel.add(Pause_Button);
+
+		Resume_button = new JButton("Resume");
+		ResumePanel = new JPanel();
+		ResumePanel.setLayout(new FlowLayout());
+		Resume_button.addActionListener(this);
+		ResumePanel.add(Resume_button);
+
+
+		
 		viewLane.setEnabled( false );
 		viewPinSetter.setEnabled( false );
+		Pause_Button.setEnabled(false);		
 
 
 		buttonPanel.add(viewLanePanel);
 		buttonPanel.add(viewPinSetterPanel);
 		buttonPanel.add(maintenancePanel);
+		buttonPanel.add(PausePanel);
+		// buttonPanel.add(ResumePanel);
 
 		jp.add( cLabel );
 		jp.add( curBowler );
@@ -115,9 +133,7 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 
 	private void maintanance_call()
 	{
-		if ( lane.isPartyAssigned() ) {
-			
-			System.out.println("Came");
+		if ( lane.isPartyAssigned() ) {			
 			lane.unPauseGame();
 			maintenance.setBackground( Color.GREEN );
 		}
@@ -142,6 +158,21 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 		if (e.getSource().equals(maintenance)) {
 			maintanance_call();
 		}
+		if (e.getSource().equals(Pause_Button)) {
+			lane.pauseGame();
+			buttonPanel.remove(PausePanel);
+			buttonPanel.add(ResumePanel);
+			// Pause_Button.setEnabled(false);
+			// Resume_button.setEnabled(true);
+		}
+		if (e.getSource().equals(Resume_button)) {
+			lane.unPauseGame();
+			// Pause_Button.setEnabled(true);
+			// Resume_button.setEnabled(false);
+			buttonPanel.remove(ResumePanel);
+			buttonPanel.add(PausePanel);
+			maintenance.setBackground( Color.GREEN );
+		}
 	}
 
 	@Override
@@ -153,9 +184,11 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 		if ( lane.isPartyAssigned() == false ) {
 			viewLane.setEnabled( false );
 			viewPinSetter.setEnabled( false );
+			Pause_Button.setEnabled(false);
 		} else {
 			viewLane.setEnabled( true );
 			viewPinSetter.setEnabled( true );
+			Pause_Button.setEnabled(true);
 		}
 	}
 

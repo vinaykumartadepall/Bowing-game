@@ -25,8 +25,7 @@ import java.io.*;
 class BowlerFile {
 
 	/** The location of the bowelr database */
-	// executing in /out/production
-	private static String BOWLER_DAT = "./DASS_Assignment_3/BOWLERS.DAT";
+	private static String BOWLER_DAT = "DASS_Assignment_3/BOWLERS.DAT";
 
     /**
      * Retrieves bowler information from the database and returns a Bowler objects with populated fields.
@@ -37,14 +36,14 @@ class BowlerFile {
      * 
      */
 
-	public static Bowler getBowlerInfo(final String nickName)
+	public static Bowler getBowlerInfo(String nickName)
 		throws IOException {
 
-		final BufferedReader in = new BufferedReader(new FileReader(BOWLER_DAT));
+		BufferedReader in = new BufferedReader(new FileReader(BOWLER_DAT));
 		String data;
 		while ((data = in.readLine()) != null) {
 			// File format is nick\tfname\te-mail
-			final String[] bowler = data.split("\t");
+			String[] bowler = data.split("\t");
 			if (nickName.equals(bowler[0])) {
 				System.out.println(
 					"Nick: "
@@ -70,14 +69,14 @@ class BowlerFile {
      */
 
 	public static void putBowlerInfo(
-		final String nickName,
-		final String fullName,
-		final String email)
+		String nickName,
+		String fullName,
+		String email)
 		throws IOException {
 
-		final String data = nickName + "\t" + fullName + "\t" + email + "\n";
+		String data = nickName + "\t" + fullName + "\t" + email + "\n";
 
-		final RandomAccessFile out = new RandomAccessFile(BOWLER_DAT, "rw");
+		RandomAccessFile out = new RandomAccessFile(BOWLER_DAT, "rw");
 		out.skipBytes((int) out.length());
 		out.writeBytes(data);
 		out.close();
@@ -93,14 +92,14 @@ class BowlerFile {
 	public static Vector getBowlers()
 		throws IOException {
 
-		final Vector allBowlers = new Vector();
+		Vector allBowlers = new Vector();
 
-		final BufferedReader in = new BufferedReader(new FileReader(BOWLER_DAT));
+		BufferedReader in = new BufferedReader(new FileReader(BOWLER_DAT));
 		String data;
 		while ((data = in.readLine()) != null) {
 			// File format is nick\tfname\te-mail
 //			System.out.println(data);
-			final String[] bowler = data.split("\t");
+			String[] bowler = data.split("\t");
 			//"Nick: bowler[0] Full: bowler[1] email: bowler[2]
 			allBowlers.add(bowler[0]);
 		}

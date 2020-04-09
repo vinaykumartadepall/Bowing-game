@@ -21,7 +21,7 @@ import java.util.*;
 
 public class ControlDeskView implements ActionListener, ControlDeskObserver {
 
-	private JButton addParty, finished, assign;
+	private JButton addParty, finished, assign, records;
 	private JFrame win;
 	private JList partyList;
 	
@@ -67,12 +67,21 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 		assignPanel.add(assign);
 		// controlsPanel.add(assignPanel);
 
+		records = new JButton("Records");
+		JPanel recordsPanel = new JPanel();
+		recordsPanel.setLayout(new FlowLayout());
+		records.addActionListener(this);
+		recordsPanel.add(records);
+		controlsPanel.add(recordsPanel);
+
 		finished = new JButton("Finished");
 		JPanel finishedPanel = new JPanel();
 		finishedPanel.setLayout(new FlowLayout());
 		finished.addActionListener(this);
 		finishedPanel.add(finished);
 		controlsPanel.add(finishedPanel);
+
+
 
 		// Lane Status Panel
 		JPanel laneStatusPanel = new JPanel();
@@ -154,6 +163,10 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 			win.setVisible(false);
 			System.exit(0);
 		}
+		if (e.getSource().equals(records)) {
+			RecordsView viewRecordsWin = new RecordsView();
+		}
+
 	}
 
 	/**

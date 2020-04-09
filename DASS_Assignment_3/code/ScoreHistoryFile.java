@@ -10,8 +10,8 @@ import java.util.*;
 import java.io.*;
 
 public class ScoreHistoryFile {
-	// executing in /out/production
-	private static String SCOREHISTORY_DAT = "./DASS_Assignment_3/SCOREHISTORY.DAT";
+
+	private static String SCOREHISTORY_DAT = "DASS_Assignment_3/SCOREHISTORY.DAT";
 
 	public static void addScore(String nick, String date, String score)
 		throws IOException {
@@ -27,9 +27,12 @@ public class ScoreHistoryFile {
 	public static Vector getScores(String nick)
 		throws IOException {
 		Vector scores = new Vector();
+		if(nick == "???")
+		{
+			return gettopScores();
+		}
 
-		BufferedReader in =
-			new BufferedReader(new FileReader(SCOREHISTORY_DAT));
+		BufferedReader in =new BufferedReader(new FileReader(SCOREHISTORY_DAT));
 		String data;
 		while ((data = in.readLine()) != null) {
 			// File format is nick\tfname\te-mail
@@ -39,7 +42,37 @@ public class ScoreHistoryFile {
 				scores.add(new Score(scoredata[0], scoredata[1], scoredata[2]));
 			}
 		}
-		return scores;
+		return scores;	
 	}
+
+
+	public static Vector gettopScores()
+	throws IOException {
+	Vector scores = new Vector();
+
+	BufferedReader in =new BufferedReader(new FileReader(SCOREHISTORY_DAT));
+	String data;
+	while ((data = in.readLine()) != null) {
+		// File format is nick\tfname\te-mail
+		String[] scoredata = data.split("\t");
+		//"Nick: scoredata[0] Date: scoredata[1] Score: scoredata[2]
+		scores.add(new Score(scoredata[0], scoredata[1], scoredata[2]));
+		// ScoreHistoryFile sh = new ScoreHistoryFile();
+		// Comparator<Score> compare = sh.new comparision();
+		// Collections.sort(scores, compare);
+	}	
+	return scores;	
+}
+
+class comparision implements Comparator<Score>{
+
+	@Override
+	public int compare(Score sc1, Score sc2) {
+		// System.out.println(Integer.parseInt(sc2.getScore()) - Integer.parseInt(sc1.getScore()));
+		// return sc1.getScore().compareTo(sc2.getScore());
+		return Integer.parseInt(sc2.getScore()) - Integer.parseInt(sc1.getScore()); 
+	}
+
+}
 
 }

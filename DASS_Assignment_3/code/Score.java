@@ -36,5 +36,8 @@ public class Score {
 	public String toString() {
 		return nick + "\t" + date + "\t" + score;
 	}
+	public String toSpaceString() {
+		return nick + "    " + date + "    " + score;
+	}
 
 }
