@@ -71,8 +71,10 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 		viewPinSetter.addActionListener(this);
 		viewPinSetterPanel.add(viewPinSetter);
 
-		maintenance = new JButton("     ");
+		maintenance = new JButton("MAINTENANCE");
+		maintenance.setForeground( Color.GREEN );
 		maintenance.setBackground( Color.GREEN );
+		maintenance.setOpaque(true);
 		maintenancePanel = new JPanel();
 		maintenancePanel.setLayout(new FlowLayout());
 		maintenance.addActionListener(this);
@@ -136,6 +138,7 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 		if ( lane.isPartyAssigned() ) {			
 			lane.unPauseGame();
 			maintenance.setBackground( Color.GREEN );
+			maintenance.setForeground( Color.GREEN );
 		}
 	}
 
@@ -172,6 +175,7 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 			buttonPanel.remove(ResumePanel);
 			buttonPanel.add(PausePanel);
 			maintenance.setBackground( Color.GREEN );
+			maintenance.setForeground( Color.GREEN );
 		}
 	}
 
@@ -180,6 +184,7 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 		curBowler.setText( le.getBowler().getNickName() );
 		if ( le.isMechanicalProblem() ) {
 			maintenance.setBackground( Color.RED );
+			maintenance.setForeground( Color.RED );
 		}	
 		if ( lane.isPartyAssigned() == false ) {
 			viewLane.setEnabled( false );
